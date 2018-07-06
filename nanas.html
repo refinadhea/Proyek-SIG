@@ -1,0 +1,112 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width"> 
+  <title>SIG Pertanian Kab.Lampung Tengah</title> 
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<body bgcolor= #4682B4>
+    <center>
+        <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+        <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+    Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+    <nav id="menu">
+            <ul>
+               <div id="heading">
+                   <a href="#">Hasil Pertanian "Nanas"</a></li>
+               </div>
+               <li><a href="n1.html">Beranda</a></li>
+               <li><a href="geojson12.html">Kecamatan</a></li>
+               <li><a href="#">Lahan</a>
+                   <ul>
+                       <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                       <li> <a href="lahankering.html">Lahan Kering </a></li>
+                   </ul>
+               </li>
+               <li><a href="#">Hasil Pertanian</a>
+                   <ul>
+                       <li><a href="padi.html">Padi</a></li>
+                       <li><a href="singkong.html">Singkong</a></li>
+                       <li><a href="jagung.html">Jagung</a></li>
+                       <li><a href="nanas.html">Nanas</a></li>
+                   </ul>
+               </li>
+           </ul>
+       </nav>
+    </center>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<body> 
+	<div id="kotak">
+		<div id="map" style="width:100%;height:400px;"></div>
+		</form>
+	</div>   
+</body> 
+<script>
+    function initMap(){
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 8,
+			center: {lat: -5.4284046, lng:105.2006967}
+		});
+		var infoWin = new google.maps.InfoWindow();
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+        var markers = locations.map(function(location, i) {
+            var marker = new google.maps.Marker({
+                position: location,
+                label: labels[i % labels.length]
+            });
+			google.maps.event.addListener(marker, 'click', function(evt) {
+				infoWin.setContent(location.info);
+				infoWin.open(map, marker);
+			})
+			return marker;
+        }); 
+            console.log(locations);
+            console.log(markers);
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+    
+	
+	var LahanLoct = [
+        {lat: -5.002646, lng: 105.064857}, 
+        {lat: -4.942841, lng: 104.962410}, 
+        {lat: -4.730284, lng: 105.490051},
+        {lat: -4.685546, lng: 105.700562},
+        {lat: -5.152624, lng: 105.061381}, 
+        {lat: -5.107752, lng: 105.137463},  
+        ];
+
+
+        var polygonLahan = new google.maps.Polygon({
+          paths: LahanLoct,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+		polygonLahan.setMap(map);
+      }
+
+    var locations = [
+    {lat: -5.002646, lng: 105.064857, info:"Anak Tuha</h3><p> Penghasilan Nanas = 20%"}, 
+        {lat: -4.942841, lng: 104.962410, info:"Anak Ratu Aji</h3><p>Penghasilan Nanas = 10%"}, 
+        {lat: -4.730284, lng: 105.490051,  info: "Bandar Mataram</h3><p>Penghasilan Nanas = 20%"},
+        {lat: -4.685546, lng: 105.700562, info: "Bandar Surabaya</h3><p>Penghasilan Nanas = 10%"},
+        {lat: -5.152624, lng: 105.061381, info: "Bangunrejo</h3><p>Penghasilan Nanas = 20%"}, 
+        {lat: -5.107752, lng: 105.137463, info: "Bekri</h3><pPenghasilan Nanas = 20%"},  
+        ]
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZB9ZJU2sial0Lcy25X2Rv0bti9HlFd1o&callback=initMap"> </script> 
+<script src="src/markerclusterer.js"></script>
+</html>
