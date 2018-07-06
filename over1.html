@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <head>
+    <title>SIG Pertanian Kab.Lampung Tengah</title> 
+    
+</head>
+<style>
+    #map {
+        background-color: gray;
+        width: 100%;
+        height: 400px;
+    }
+    .footer {
+        width:auto;
+        height: 10px;
+        background-color:darkcyan;
+        color:white;
+        padding:20px;
+}
+</style>
+</head>
+<center>
+    <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+    <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+</center>
+<body bgcolor= #4682B4>
+            <div class="header">
+                <nav id="menu">
+                    <ul>
+                       <div id="heading">
+                           <a href="#">Pertanian Kab.Lamteng</a></li>
+                       </div>
+                       <li><a href="n1.html">Beranda</a></li>
+                       <li><a href="#">Kecamatan</a>
+                        <ul>
+                            <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+                            <li><a href="kecanakratuaji.html">Anak Ratu Aji</a></li>
+                            <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+                            <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+                            <li><a href="kecbangunrejo.html">Bangun Rejo</a></li>
+                        </ul>
+                        <li><a href="#">Pencarian</a>
+                            <ul>
+                                <li> <a href="searching.html">Pencarian Lokasi</a></li>
+                                <li> <a href="directionnpinal.html">Petunjuk Arah</a></li>
+                                <li> <a href="elevation2.html">Elevation</a></li>
+                                <li> <a href="overlay.html">Overlay</a></li>
+                            </ul>
+                        </li>
+                       <li><a href="#">Lahan</a>
+                           <ul>
+                               <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                               <li> <a href="lahankering.html">Lahan Kering </a></li>
+                           </ul>
+                       </li>
+                       <li><a href="#">Overlay</a>
+                        <ul>
+                            <li> <a href="overlay.html">Anak Tuha</a></li>
+                            <li> <a href="over1.html">Bandar Mataram</a></li>
+                        </ul>
+                       <li><a href="#">Hasil Pertanian</a>
+                           <ul>
+                               <li><a href="padi.html">Padi</a></li>
+                               <li><a href="singkong.html">Singkong</a></li>
+                               <li><a href="jagung.html">Jagung</a></li>
+                               <li><a href="nanas.html">Nanas</a></li>
+                           </ul>
+                       </li>
+                   </ul>
+               </nav>
+    <body>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAICvEJEVcEqp6JxtFoP8YsvaCZ5lRjl-s"></script>
+          <body> 
+            <div id="map-canvas"></div>
+          <div id="kotak">
+            <div id="map" style="width:100%;height:400px;"></div>
+          <script>
+      
+            var overlay;
+            USGSOverlay.prototype = new google.maps.OverlayView();
+      
+            // Initialize the map and the custom overlay.
+      
+            function initMap() {
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: {lat: -4.981391, lng: 105.209539},
+                mapTypeId: 'roadmap'
+              });
+      
+              var bounds = new google.maps.LatLngBounds(
+                  new google.maps.LatLng(-4.942841,104.962410),
+                  new google.maps.LatLng(-4.730284,105.490051));
+      
+              var srcImage = 'images/sawahh.jpg';
+              overlay = new USGSOverlay(bounds, srcImage, map);
+            }
+      
+            function USGSOverlay(bounds, image, map) {
+      
+              this.bounds_ = bounds;
+              this.image_ = image;
+              this.map_ = map;
+              this.div_ = null;
+              this.setMap(map);
+            }
+            USGSOverlay.prototype.onAdd = function() {
+      
+              var div = document.createElement('div');
+              div.style.borderStyle = 'none';
+              div.style.borderWidth = '0px';
+              div.style.position = 'absolute';
+      
+              var img = document.createElement('img');
+              img.src = this.image_;
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.position = 'absolute';
+              div.appendChild(img);
+      
+              this.div_ = div;
+      
+              // Add the element to the "overlayLayer" pane.
+              var panes = this.getPanes();
+              panes.overlayLayer.appendChild(div);
+            };
+      
+            USGSOverlay.prototype.draw = function() {
+              var overlayProjection = this.getProjection();
+              var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+              var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+      
+              var div = this.div_;
+              div.style.left = sw.x + 'px';
+              div.style.top = ne.y + 'px';
+              div.style.width = (ne.x - sw.x) + 'px';
+              div.style.height = (sw.y - ne.y) + 'px';
+            };
+      
+            USGSOverlay.prototype.onRemove = function() {
+              this.div_.parentNode.removeChild(this.div_);
+              this.div_ = null;
+            };
+      
+            google.maps.event.addDomListener(window, 'load', initMap);
+          </script>
+      
+</html>
