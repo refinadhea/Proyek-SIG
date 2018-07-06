@@ -1,0 +1,227 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width"> 
+  <title>SIG Pertanian Kab.Lampung Tengah</title> 
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    html { height: 100% }
+    #panel{padding:5px;}
+       .input {
+    height: 25px;
+    padding: 2px;
+    width: 200px;
+       }
+    .select{
+    height: 33px;
+    padding: 2px;
+    }
+    #btn{
+      height: 31px;
+      background: #267BA8;
+      border: none;
+      padding: 5px;
+      color: #fff;
+    }
+    #directions-panel {
+         height: 100%;
+         float: right;
+         width: 300px;
+         overflow: auto;
+       }
+    #map-canvas { height: 400px;}
+    *{
+    margin: 0;
+    padding: 0;
+   }
+   body {
+    text-align:center;
+    background-color:#61b3de;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:80%;
+    color:#666;
+   }
+   .wrap {
+    background: #f3f8fb;
+    width:900px;
+    margin:30px auto;
+    border: 4px dashed #61b3de;
+    border-radius:4px;
+    padding: 20px 5px;
+   }
+   h1 {
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:24px;
+    color:#645348;
+    font-style:italic;
+    text-decoration:none;
+    font-weight:100;
+    padding: 10px;
+   }
+   .copy{
+    margin-top: 20px;
+    clear: both;
+   }
+   @media print {
+    #map-canvas {
+      height: 500px;
+      margin: 0;
+    }
+ 
+    #directions-panel {
+      float: none;
+      width: 100%;
+    }
+     }
+     </style>
+</head>
+
+<body>
+<body bgcolor= #4682B4>
+    <center>
+        <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+        <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+    Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+    <nav id="menu">
+            <ul>
+               <div id="heading">
+                   <a href="#">Pertanian Kab.Lamteng</a></li>
+               </div>
+               <li><a href="n1.html">Beranda</a></li>
+               <li><a href="#">Kecamatan</a>
+                <ul>
+                    <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+                    <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+                    <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+                    <li><a href="over1.html">Overlay</a></li>
+                </ul>
+                <li><a href="#">Pencarian</a>
+                    <ul>
+                        <li> <a href="searching.html">Pencarian Lokasi</a></li>
+                        <li> <a href="directionnpinal.html">Petunjuk Arah</a></li>
+                        <li> <a href="elevation2.html">Elevation</a></li>
+                        <li> <a href="legg.html">Legenda</a></li>
+                    </ul>
+                </li>
+               <li><a href="#">Lahan</a>
+                   <ul>
+                       <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                       <li> <a href="lahankering.html">Lahan Kering </a></li>
+                       <li> <a href="legenda.html">Legenda</a></li>
+                   </ul>
+               </li>
+               <li><a href="#">Hasil Pertanian</a>
+                   <ul>
+                       <li><a href="padi.html">Padi</a></li>
+                       <li><a href="singkong.html">Singkong</a></li>
+                       <li><a href="jagung.html">Jagung</a></li>
+                       <li><a href="nanas.html">Nanas</a></li>
+                   </ul>
+               </li>
+           </ul>
+       </nav>
+    </center>
+    
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<body> 
+	<div id="kotak">
+		<div id="map" style="width:100%;height:400px;"></div>
+		</form>
+	</div>   
+</body> 
+<script>
+    function initMap(){
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 8,
+			center: {lat: -5.4284046, lng:105.2006967}
+		});
+		var infoWin = new google.maps.InfoWindow();
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+        var markers = locations.map(function(location, i) {
+            var marker = new google.maps.Marker({
+                position: location,
+                label: labels[i % labels.length]
+            });
+			google.maps.event.addListener(marker, 'click', function(evt) {
+				infoWin.setContent(location.info);
+				infoWin.open(map, marker);
+			})
+			return marker;
+        }); 
+            console.log(locations);
+            console.log(markers);
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+    
+	
+	var LahanLoct = [
+        {lat: -5.002646, lng: 105.064857}, 
+        {lat: -4.942841, lng: 104.962410}, 
+        {lat: -4.730284, lng: 105.490051},
+        {lat: -4.685546, lng: 105.700562},
+        {lat: -5.152624, lng: 105.061381}, 
+        {lat: -5.107752, lng: 105.137463},  
+        {lat: -4.652556, lng: 105.545181},
+        {lat: -5.059547, lng: 105.183409},
+        {lat: -4.969276, lng: 105.280886},
+        {lat: -5.226403, lng: 105.003151},
+        {lat: -5.030342, lng: 105.303399},
+        {lat: -5.068594, lng: 104.967554},
+        {lat: -5.078531, lng: 104.929439},
+        {lat: -5.034567,lng: 105.263614},
+        {lat: -4.800487,lng: 105.555962},
+        {lat: -5.034833,lng: 104.843171},
+        {lat: -5.211347,lng: 104.878272},
+        {lat: -4.940213,lng: 105.181340},
+        {lat: -4.828887,lng: 105.524516},
+        {lat: -4.697816,lng: 105.210390},
+        ];
+
+
+        var polygonLahan = new google.maps.Polygon({
+          paths: LahanLoct,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+		polygonLahan.setMap(map);
+      }
+
+    var locations = [
+    {lat: -5.002646, lng: 105.064857, info:"Anak Tuha</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"}, 
+        {lat: -4.942841, lng: 104.962410, info:"Anak Ratu Aji</h3><p>Padi 30%,Tebu 20%,Singkong 20%,Karet 30%"}, 
+        {lat: -4.730284, lng: 105.490051,  info: "Bandar Mataram</h3><p>Padi :40%,Singkong :50%,Tebu:10%"},
+        {lat: -4.685546, lng: 105.700562, info: "Bandar Surabaya</h3><p>Padi :30%,Singkong :30%,Nanas: 40%"},
+        {lat: -5.152624, lng: 105.061381, info: "Bangunrejo</h3><p>Padi :40%,Singkong :30%,Karet :30%"}, 
+        {lat: -5.107752, lng: 105.137463, info: "Bekri</h3><p>Padi :40%,Singkong :50%,Tebu:10%"},  
+        {lat: -4.652556, lng: 105.545181, info: "Bumi Nabung</h3><p>Padi :30%,Singkong :50%,Tebu:10%,Nanas:10%"},
+        {lat: -5.059547, lng: 105.183409, info: "Bumi Ratu Nuban</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+        {lat: -4.969276, lng: 105.280886, info: "Gn. Sugih</h3><p>Padi 40%,Singkong 30%,Jagung 20%,Nanas 10%"},
+        {lat: -5.226403, lng: 105.003151, info: "Kalirejo</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Tebu 10%"},
+        {lat: -5.030342, lng: 105.303399, info: "Kota Gajah</h3><p>Padi 60%,Singkong 40%"},
+        {lat: -5.068594, lng: 104.967554, info: "Padang Ratu</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+        {lat: -5.078531, lng: 104.929439, info: "Pubian</h3><p>Padi 40%,Karet 40%,Jagung 10%,Tebu 10%"},
+        {lat: -5.034567,lng: 105.263614, info: "Punggur</h3><p>Padi 40%,Jagung 40%,Tebu 20%"},
+        {lat: -4.800487,lng: 105.555962, info: "Putra Rumbia</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Tebu 10%"},
+        {lat: -5.034833,lng: 104.843171, info: "Selagai Lingga</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Tebu 10%"},
+        {lat: -5.211347,lng: 104.878272, info: "Sendang Agung</h3><p>Padi 40%,Singkong 30%,Jagung 20%,Tebu 10%"},
+        {lat: -4.940213,lng: 105.181340, info: "Seputih Agung</h3><p>Padi 30%,Singkong 30%,Nanas 20%,Jagung 10%,Tebu 10%"},
+        {lat: -4.828887,lng: 105.524516, info: "Seputih Banyak</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+        {lat: -4.697816,lng: 105.210390, info: "Terusan Nyunyai</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+    
+        ]
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZB9ZJU2sial0Lcy25X2Rv0bti9HlFd1o&callback=initMap"> </script> 
+<script src="src/markerclusterer.js"></script>
+</html>
