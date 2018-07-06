@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width"> 
+        <title>SIG Pertanian Kab.Lampung Tengah</title> 
+        <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      html { height: 100% }
+    #panel{padding:5px;}
+       .input {
+    height: 25px;
+    padding: 2px;
+    width: 200px;
+       }
+    .select{
+    height: 33px;
+    padding: 2px;
+    }
+    #btn{
+      height: 31px;
+      background: #267BA8;
+      border: none;
+      padding: 5px;
+      color: #fff;
+    }
+    #directions-panel {
+         height: 100%;
+         float: right;
+         width: 300px;
+         overflow: auto;
+       }
+    #map-canvas { height: 400px;}
+    *{
+    margin: 0;
+    padding: 0;
+   }
+   body {
+    text-align:center;
+    background-color:#61b3de;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:80%;
+    color:#666;
+   }
+   .wrap {
+    background: #f3f8fb;
+    width:900px;
+    margin:30px auto;
+    border: 4px dashed #61b3de;
+    border-radius:4px;
+    padding: 20px 5px;
+   }
+   h1 {
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:24px;
+    color:#645348;
+    font-style:italic;
+    text-decoration:none;
+    font-weight:100;
+    padding: 10px;
+   }
+   .copy{
+    margin-top: 20px;
+    clear: both;
+   }
+   @media print {
+    #map-canvas {
+      height: 500px;
+      margin: 0;
+    }
+ 
+    #directions-panel {
+      float: none;
+      width: 100%;
+    }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #map {
+        /* height: 400px; */
+		height: 100%;
+        width: 100%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+   }
+    </style>
+  </head>
+  <body>
+        <body bgcolor= #4682B4>
+                <center>
+                    <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+                    <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+                Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+                <nav id="menu">
+                        <ul>
+                           <div id="heading">
+                               <a href="#">Pertanian Kab.Lamteng</a></li>
+                           </div>
+                           <li><a href="n1.html">Beranda</a></li>
+                           <li><a href="#">Kecamatan</a>
+                            <ul>
+                                <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+                                <li><a href="kecanakratuaji.html">Anak Ratu Aji</a></li>
+                                <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+                                <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+                                <li><a href="kecbangunrejo.html">Bangun Rejo</a></li>
+                            </ul>
+                            <li><a href="#">Pencarian</a>
+                                <ul>
+                                    <li> <a href="searching.html">Pencarian Lokasi</a></li>
+                                    <li> <a href="directionnpinal.html">Petunjuk Arah</a></li>
+                                    <li> <a href="elevation2.html">Elevation</a></li>
+                                    <li> <a href="overlay.html">Overlay</a></li>
+                                </ul>
+                            </li>
+                           <li><a href="#">Lahan</a>
+                               <ul>
+                                   <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                                   <li> <a href="lahankering.html">Lahan Kering </a></li>
+                               </ul>
+                           </li>
+                           <li><a href="#">Overlay</a>
+                            <ul>
+                                <li> <a href="overlay.html">Anak Tuha</a></li>
+                                <li> <a href="over1.html">Bandar Mataram</a></li>
+                                <li> <a href="over2.html">Gunung Sugih</a></li>
+                            </ul>
+                           <li><a href="#">Hasil Pertanian</a>
+                               <ul>
+                                   <li><a href="padi.html">Padi</a></li>
+                                   <li><a href="singkong.html">Singkong</a></li>
+                                   <li><a href="jagung.html">Jagung</a></li>
+                                   <li><a href="nanas.html">Nanas</a></li>
+                               </ul>
+                           </li>
+                       </ul>
+                   </nav>
+                </center>
+                
+            <script src="http://maps.googleapis.com/maps/api/js"></script>
+            
+            
+            <body> 
+                <div id="kotak">
+                    <div id="map" style="width:100%;height:400px;"></div>
+                    </form>
+                </div>   
+    <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          //center: new google.maps.LatLng(-33.91722, 151.23064),
+		  // the old one is in UNSW, Australia
+		  // change it into UIN Suska: 101.35475,0.46559
+          center: new google.maps.LatLng(-4.981391, 105.209539),
+          mapTypeId: 'roadmap'
+        });
+        var iconBase = 'images/';
+        var icons = {
+          
+          library: {
+            name: 'Lahan Kering',
+            icon: iconBase + 'hurufk.jpg'
+          },
+          info: {
+            name: 'Lahan Basah',
+            icon: iconBase + 'hurufb.png'
+          },
+          parking: {
+            name: '.',
+            icon: iconBase + ''
+          }
+        };
+        function addMarker(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+		  
+		  // since not every feature has content, only add infoWindow when content exist
+		  if(feature.content){
+			  var marker_infoWindow = new google.maps.InfoWindow({
+				content: feature.content
+			  });
+			  marker.addListener('click', function() {
+				marker_infoWindow.open(map, marker);
+			  });
+			  
+			  
+		  }
+        }
+        var features = [
+          {
+            position: new google.maps.LatLng(-4.982273, 105.209791),
+			content: 'Lahan Basah',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-4.981701, 105.209491),
+			content: 'Lahan Basah',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-4.982086, 105.209915),
+            content: 'Lahan Basah',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-4.981776, 105.209974),
+            content: 'Lahan Basah',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46725, 101.35011),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46872, 101.35089),
+			content: 'INFO dodol lagi ...',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46784, 101.35094),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46682, 101.35149),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46790, 101.35463),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.46666, 101.35468),
+			content: 'INFO dodol lagi ...',
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(0.466988, 101.353640),
+			content: 'INFO dodol lagi ...',
+            type: 'info'
+          },  {
+            position: new google.maps.LatLng(0.46851096391805, 101.3544058214569),
+            type: 'parking'
+          }, {
+            position: new google.maps.LatLng(0.46818154739766, 101.3546203981781),
+            type: 'parking'
+          }, 
+          {
+            position: new google.maps.LatLng(-4.983032, 105.210494),
+            type: 'library',
+			content: 'Lahan Kering'
+          },
+          {
+            position: new google.maps.LatLng(-4.982898, 105.211197),
+            type: 'library',
+			content: 'Lahan Kering'
+          },
+          {
+            position: new google.maps.LatLng(-4.982134, 105.211760),
+            type: 'library',
+			content: 'Lahan Kering'
+          },
+        ];
+        for (var i = 0, feature; feature = features[i]; i++) {
+          addMarker(feature);
+        }
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfswesJkjAcixCfuhU42Ss6dHlFCG5JAk&callback=initMap">
+    </script>
+  </body>
+</html>
