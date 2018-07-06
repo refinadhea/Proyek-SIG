@@ -1,0 +1,141 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width"> 
+    <title>SIG Pertanian Kab.Lampung Tengah</title> 
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <body bgcolor= #4682B4>
+        <center>
+            <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+            <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+        Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+        <nav id="menu">
+                <ul>
+                   <div id="heading">
+                       <a href="#">Lahan Basah</a></li>
+                   </div>
+                   <li><a href="n1.html">Beranda</a></li>
+                   <li><a href="#">Kecamatan</a>
+                    <ul>
+                        <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+                        <li><a href="kecanakratuaji.html">Anak Ratu Aji</a></li>
+                        <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+                        <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+                        <li><a href="kecbangunrejo.html">Bangun Rejo</a></li>
+                    </ul>
+                    <li><a href="#">Pencarian</a>
+                        <ul>
+                            <li> <a href="searching.html">Pencarian Lokasi</a></li>
+                            <li> <a href="directionn.html">Petunjuk Arah</a></li>
+                        </ul>
+                    </li>
+                   <li><a href="#">Lahan</a>
+                       <ul>
+                           <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                           <li> <a href="lahankering.html">Lahan Kering </a></li>
+                       </ul>
+                   </li>
+                   <li><a href="#">Hasil Pertanian</a>
+                       <ul>
+                           <li><a href="padi.html">Padi</a></li>
+                           <li><a href="singkong.html">Singkong</a></li>
+                           <li><a href="jagung.html">Jagung</a></li>
+                           <li><a href="nanas.html">Nanas</a></li>
+                       </ul>
+                   </li>
+               </ul>
+           </nav>
+        </center>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <body> 
+        <div id="kotak">
+            <div id="map" style="width:100%;height:400px;"></div>
+            </form>
+        </div>   
+    </body> 
+<body>
+    <div id = "map"></div>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+    <script>
+    var map = null;
+    var center = {lat:-5.367284, lng:105.244935};
+    var infowindow;
+    var config = {
+            apiKey: "AIzaSyA331ljOzhP8cf7MvDpttEm4bFCVqmzr9o",
+            authDomain: "mapsgeojson.firebaseapp.com",
+            databaseURL: "https://mapsgeojson.firebaseio.com",
+            projectId: "mapsgeojson",
+            storageBucket: "mapsgeojson.appspot.com",
+            messagingSenderId: "734662133010"
+            };
+    firebase.initializeApp(config);
+
+    var db = firebase.database();
+        var dataRef = db.ref('lampung_tengah')
+
+    dataRef.on('value', showData, showError);
+    function showData(data){
+        // console.log(data.val());
+        map.data.addGeoJson(data.val());
+        map.data.setStyle({
+            fillColor: '#10934d',
+            strokeWeight: 0.3
+        });
+        map.data.addListener('click', function(event){
+            infoWindowContent = event.feature.getProperty('DESA');
+            infowindow.setContent(infoWindowContent);
+            infowindow.setPosition(event.latLng);
+            infowindow.open(map);
+        });
+    }
+    function showError(err){
+        console.log(err);
+    }
+
+    function initMap(){
+        var lampung={lat: -4.558585, lng: 105.406808};
+        map = new google.maps.Map(document.getElementById('map'),{
+            zoom: 8,
+            center: center
+        });
+        var infoWin = new google.maps.InfoWindow();
+	// Add some markers to the map.
+	// Note: The code uses the JavaScript Array.prototype.map() method to
+	// create an array of markers based on a given "locations" array.
+	// The map() method here has nothing to do with the Google Maps API.
+	var markers = locations.map(function(location, i) {
+    var marker = new google.maps.Marker({position: location});
+
+    google.maps.event.addListener(marker, 'click', function(evt){
+	infoWin.setContent(location.info);
+	infoWin.open(map, marker);
+	})
+    return marker;
+	});
+    // Add a marker clusterer to manage the markers.
+	var markerCluster = new MarkerClusterer(map, markers, {
+    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+	});
+    }
+    var locations = [
+     {lat: -5.002646, lng: 105.064857, info:"Anak Tuha</h3><p>Jenis Lahan : Lahan Basah"}, 
+        {lat: -4.942841, lng: 104.962410, info:"Anak Ratu Aji</h3><p>Jenis Lahan : Lahan Basah"}, 
+        {lat: -4.730284, lng: 105.490051,  info: "Bandar Mataram</h3><p>Jenis Lahan : Lahan Basah"},
+        {lat: -4.685546, lng: 105.700562, info: "Bandar Surabaya</h3><p>Jenis Lahan : Lahan Basah"},
+        {lat: -5.152624, lng: 105.061381, info: "Bangunrejo</h3><p>Jenis Lahan : Lahan Basah"}, 
+        {lat: -5.107752, lng: 105.137463, info: "Bekri</h3><p>Jenis Lahan : Lahan Basah"},    
+      ]
+
+	google.maps.event.addDomListener(window, "load", initMap);
+	</script>
+
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgguC6i63tqFRC_6V86XosB4gCmBM8mRU&callback=initMap"></script>    
+   <script src="src/markerclusterer.js">
+   </script>
+   
+</body>
+</html>
