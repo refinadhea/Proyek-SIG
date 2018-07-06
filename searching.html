@@ -1,0 +1,290 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width"> 
+  <title>SIG Pertanian Kab.Lampung Tengah</title> 
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<body bgcolor= #4682B4>
+    <center>
+        <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+        <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+    Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+    <nav id="menu">
+            <ul>
+               <div id="heading">
+                   <a href="#">Pencarian Data</a></li>
+               </div>
+               <li><a href="n1.html">Beranda</a></li>
+               <li><a href="#">Kecamatan</a>
+                <ul>
+                    <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+                    <li><a href="kecanakratuaji.html">Anak Ratu Aji</a></li>
+                    <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+                    <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+                    <li><a href="kecbangunrejo.html">Bangun Rejo</a></li>
+                </ul>
+               <li><a href="#">Lahan</a>
+                   <ul>
+                       <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                       <li> <a href="lahankering.html">Lahan Kering </a></li>
+                   </ul>
+               </li>
+               <li><a href="#">Hasil Pertanian</a>
+                   <ul>
+                       <li><a href="padi.html">Padi</a></li>
+                       <li><a href="singkong.html">Singkong</a></li>
+                       <li><a href="jagung.html">Jagung</a></li>
+                       <li><a href="nanas.html">Nanas</a></li>
+                   </ul>
+               </li>
+           </ul>
+       </nav>
+    </center>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<body> 
+	<div id="kotak">
+		<div id="map" style="width:100%;height:400px;"></div>
+		</form>
+	</div>   
+</body> 
+<style>
+        .controls {
+                    margin-top: 10px;
+                    border: 1px solid transparent;
+                    border-radius: 2px 0 0 2px;
+                    box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    height: 32px;
+                    outline: none;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                  }
+                  #searchInput {
+                      background-color: #fff;
+                      font-family: Roboto;
+                      font-size: 15px;
+                      font-weight: 300;
+                      margin-left: 12px;
+                      padding: 0 11px 0 13px;
+                      text-overflow: ellipsis;
+                      width: 50%;
+                  }
+                  #searchInput:focus {
+                      border-color: #4d90fe;
+                  }
+                  .keterangan{
+                  background-color: white;
+                }
+            </style>
+        
+        <input id="searchInput" class="controls" type="text" placeholder="Enter a location">
+        <div id="map"></div> 
+<script>
+
+function initialize(){
+	var mapOptions = {
+		zoom:9,
+		center: new google.maps.LatLng(-5.4284046, 105.2006967),
+	};
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	
+	infoWindow = new google.maps.InfoWindow();
+	var infowindow = new google.maps.InfoWindow();
+	
+	var contentString;
+	infowindow.setContent(contentString);
+  
+	var marker = new google.maps.Marker();
+	marker.addListener('click',function(){
+		infowindow.open(map,marker);
+  ``});
+	marker.setMap(map);
+	
+	var infoWin = new google.maps.InfoWindow();
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+    var markers = locations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+		google.maps.event.addListener(marker, 'click', function(evt) {
+			infoWin.setContent(location.info);
+			infoWin.open(map, marker);
+		})
+		return marker;
+    }); 
+    
+	console.log(locations);
+    console.log(markers);
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'images/m'});
+        
+    var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+    console.log(markerCluster.getCalculator());
+
+	var unila = new google.maps.Polygon({
+		paths:[
+			new google.maps.LatLng(-5.3590439, 105.2341747),
+			new google.maps.LatLng(-5.381262, 105.2210641),
+			new google.maps.LatLng(-5.3680861, 105.2332413),
+			new google.maps.LatLng(-5.3674773, 105.2338153)
+		], 
+		strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '', 
+		map: map
+	});
+	google.maps.event.addListener(unila, 'click', showArrays);
+
+    }
+	
+	function showArrays(event) {
+		var vertices = this.getPath();
+		var contentString = '<b>' + this.name + '</b>';
+		infoWindow.setPosition(event.latLng);
+		infoWindow.setContent(contentString);
+		infoWindow.open(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+     var locations = [
+        
+        {lat: -4.652556, lng: 105.545181, info: "Bumi Nabung</h3><p>Jenis Lahan : Lahan Kering"},
+        {lat: -5.059547, lng: 105.183409, info: "Bumi Ratu Nuban</h3><p>Jenis Lahan : Lahan Kering"},
+        {lat: -4.969276, lng: 105.280886, info: "Gn. Sugih</h3><p>Jenis Lahan : Lahan Kering"},
+        {lat: -5.226403, lng: 105.003151, info: "Kalirejo</h3><p>Jenis Lahan : Lahan Kering"},
+        {lat: -5.030342, lng: 105.303399, info: "Kota Gajah</h3><p>Jenis Lahan : Lahan Kering"},  
+        {lat: -4.828887,lng: 105.524516, info: "Seputih Banyak</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+        {lat: -4.697816,lng: 105.210390, info: "Terusan Nyunyai</h3><p>Padi 40%,Singkong 40%,Jagung 10%,Nanas 10%"},
+      ]
+</script>
+
+ <div id = "map"></div>
+ <div id = "map"></div>
+ <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeAZbbQwLdqYLmP6qo3G7pzDVFQByHRbQ&callback=initMap"></script>
+ <script>  
+ var map = null;
+ var center = {lat: -5.387218, lng: 105.261122};
+ var infowindow;
+
+ var config = {
+            apiKey: "AIzaSyA331ljOzhP8cf7MvDpttEm4bFCVqmzr9o",
+            authDomain: "mapsgeojson.firebaseapp.com",
+            databaseURL: "https://mapsgeojson.firebaseio.com",
+            projectId: "mapsgeojson",
+            storageBucket: "mapsgeojson.appspot.com",
+            messagingSenderId: "734662133010"
+            };
+        firebase.initializeApp(config);
+
+        var db = firebase.database();
+        var dataRef = db.ref('lampung_tengah')
+
+        dataRef.on('value', showData, showError);
+        function showData(data){
+            //console.log(data.val());
+            map.data.addGeoJson(data.val()); 
+            map.data.setStyle({
+                fillColor :'#ff1e1e',
+                strokeWeight: 0.2
+            });
+            map.data.addListener('click', function(event){
+                infoWindowContent = event.feature.getProperty('DESA')+"<br>"+event.feature.getProperty('KECAMATAN');
+                infowindow.setContent(infoWindowContent);
+                infowindow.setPosition(event.latLng);
+                infowindow.open(map);
+        
+            });
+        }
+        function showError(err){
+            console.log(err);
+        }
+        function initMap(){
+            map = new google.maps.Map(document.getElementById('map'),{
+                zoom: 11,
+                center: center
+            });
+            infowindow = new google.maps.InfoWindow();
+            var input = document.getElementById('searchInput');
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+  
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+        marker.setIcon(({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+    
+        var address = '';
+        if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+        }
+    
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+      
+        //Location details
+        for (var i = 0; i < place.address_components.length; i++) {
+            if(place.address_components[i].types[0] == 'postal_code'){
+                document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+            }
+            if(place.address_components[i].types[0] == 'country'){
+                document.getElementById('country').innerHTML = place.address_components[i].long_name;
+            }
+        }
+        document.getElementById('location').innerHTML = place.formatted_address;
+    });
+
+            markerlokasi.addListener('click',function(){
+                    infowindowlokasi.open(map,markerlokasi);
+                    });
+                    markerlokasi.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojIfYtnnBBTZKlPe5Wvb-KnDPoV5kVWA&libraries=places&callback=initMap" async defer></script>
+</html>
+<script src="src/markerclusterer.js"></script>
+</html>
