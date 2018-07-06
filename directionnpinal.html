@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="stylee.css">
+  <head>
+      <title>SIG Pertanian Kab.Lampung Tengah</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Displaying text directions with <code>setPanel()</code></title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      #right-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
+      #map {
+        margin-right: 400px;
+      }
+      #floating-panel {
+        background: #fff;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none;
+      }
+      @media print {
+        #map {
+          height: 500px;
+          margin: 0;
+        }
+        #right-panel {
+          float: none;
+          width: auto;
+        }
+      }
+    
+            .footer {
+                width:auto;
+                height: 10px;
+                background-color:paleturquoise;
+                color:#DDA0DD;
+                padding:20px;
+      }
+    </style>
+  </head>
+  <body bgcolor= #4682B4></body>
+  <center>
+      <div class="header"> <img src= petani2.png height= "90" width= "90"> </div>
+      <h1><font color= "white">SIG Pertanian Kab.Lampung Tengah</h1>
+  Refina Dhea - Dewi Apriyani - Maya Asterita</font>
+  </center>
+
+  <nav id="menu">
+      <ul>
+         <div id="heading">
+             <a href="#">Direction</a></li>
+         </div>
+         <li><a href="n1.html">Beranda</a></li>
+         <li><a href="#">Kecamatan</a>
+          <ul>
+              <li><a href="kecanaktuha.html">Anak Tuha</a></li>
+              <li><a href="kecanakratuaji.html">Anak Ratu Aji</a></li>
+              <li><a href="kecbandarmataram.html">Bandar Mataram</a></li>
+              <li><a href="kecbandarsurabaya.html">Bandar Surabaya</a></li>
+              <li><a href="kecbangunrejo.html">Bangun Rejo</a></li>
+          </ul>
+          <li><a href="#">Pencarian</a>
+            <ul>
+                <li> <a href="searching.html">Pencarian Lokasi</a></li>
+                <li> <a href="directionn.html">Petunjuk Arah</a></li>
+            </ul>
+        </li>
+         <li><a href="#">Lahan</a>
+             <ul>
+                 <li> <a href="lahanbasah.html">Lahan Basah </a></li>
+                 <li> <a href="lahankering.html">Lahan Kering </a></li>
+             </ul>
+         </li>
+         <li><a href="#">Hasil Pertanian</a>
+             <ul>
+                 <li><a href="padi.html">Padi</a></li>
+                 <li><a href="singkong.html">Singkong</a></li>
+                 <li><a href="jagung.html">Jagung</a></li>
+                 <li><a href="nanas.html">Nanas</a></li>
+             </ul>
+         </li>
+     </ul>
+ </nav>
+  <body>
+    <div id="floating-panel">
+      <strong>Start:</strong>
+      <select id="start">
+        <option value="Bumi Aji,Anak Tuha, Kabupaten Lampung Tengah">Sawah Anak Tuha</option>
+        <option value="Kelumbayan Barat,Sidoharjo,Kabupaten Tanggamus, Lampung">Sawah Anak Ratu Aji</option>
+        <option value="Jati Datar Mataram,Bandar Mataram, Central Lampung Regency, Lampung">Sawah Bandar Mataram</option>
+        <option value="Gaya Baru Lima,Bandar Surabaya, Central Lampung Regency, Lampung">Sawah Bandar Surabaya</option>
+        <option value="Cimarias,Bangunrejo, Central Lampung Regency, Lampung">Sawah Bangunrejo</option>
+        <option value="Goras Jaya,Bekri, Kabupaten Lampung Tengah, Lampung">Sawah Bekri</option>
+        <option value="Bumi Nabung Ilir,Bumi Nabung, Kabupaten Lampung Tengah, Lampung">Sawah Bumi Nabung</option>
+        <option value="Bumiraharjo,Bumi Ratu Nuban, Kabupaten Lampung Tengah, Lampung">Sawah Bumi Ratu Nuban</option>
+        <option value="Seputih Jaya,Gn. Sugih, Kabupaten Lampung Teng">Sawah Gunung Sugih</option>
+        <option value="Sri Basuki,Kalirejo, Kabupaten Lampung Tengah, Lampung">Sawah Kalirejo</option>
+        <option value="Sumber Rejo,Kota Gajah, Kabupaten Lampung Tengah, Lampung">Sawah Kotagajah</option>
+        <option value="Mojokerto,Padang Ratu, Kabupaten Lampung Tengah, Lampung">Sawah Padang Ratu</option>
+      </select>
+      <br>
+      <strong>End:</strong>
+      <select id="end">
+        <option value="Bumi Aji,Anak Tuha, Kabupaten Lampung Tengah">Sawah Anak Tuha</option>
+        <option value="Kelumbayan Barat,Sidoharjo,Kabupaten Tanggamus, Lampung">Sawah Anak Ratu Aji</option>
+        <option value="Jati Datar Mataram,Bandar Mataram, Central Lampung Regency, Lampung">Sawah Bandar Mataram</option>
+        <option value="Gaya Baru Lima,Bandar Surabaya, Central Lampung Regency, Lampung">Sawah Bandar Surabaya</option>
+        <option value="Cimarias,Bangunrejo, Central Lampung Regency, Lampung">Sawah Bangunrejo</option>
+        <option value="Goras Jaya,Bekri, Kabupaten Lampung Tengah, Lampung">Sawah Bekri</option>
+        <option value="Bumi Nabung Ilir,Bumi Nabung, Kabupaten Lampung Tengah, Lampung">Sawah Bumi Nabung</option>
+        <option value="Bumiraharjo,Bumi Ratu Nuban, Kabupaten Lampung Tengah, Lampung">Sawah Bumi Ratu Nuban</option>
+        <option value="Seputih Jaya,Gn. Sugih, Kabupaten Lampung Teng">Sawah Gunung Sugih</option>
+        <option value="Sri Basuki,Kalirejo, Kabupaten Lampung Tengah, Lampung">Sawah Kalirejo</option>
+        <option value="Sumber Rejo,Kota Gajah, Kabupaten Lampung Tengah, Lampung">Sawah Kotagajah</option>
+        <option value="Mojokerto,Padang Ratu, Kabupaten Lampung Tengah, Lampung">Sawah Padang Ratu</option>  
+      </select>
+    </div>
+    <div id="right-panel"></div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: new google.maps.LatLng(-5.4284046, 105.2006967),
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
+
+        var control = document.getElementById('floating-panel');
+        control.style.display = 'block';
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var start = document.getElementById('start').value;
+        var end = document.getElementById('end').value;
+        directionsService.route({
+          origin: start,
+          destination: end,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+   <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbEOHbfYltz6DkuHjCc3yidWs0EEzWNTY&callback=initMap">
+    </script>
+  </body>
+</html>
